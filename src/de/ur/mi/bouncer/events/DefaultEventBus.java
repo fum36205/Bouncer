@@ -4,17 +4,20 @@ import auctionsniper.util.Announcer;
 import de.ur.mi.bouncer.Beeper;
 import de.ur.mi.bouncer.Direction;
 import de.ur.mi.bouncer.world.FieldColor;
+import de.ur.mi.bouncer.stacktrace.StackTraceFilter;
 import de.ur.mi.bouncer.world.Field;
 
 public class DefaultEventBus implements EventBus {
+	private final StackTraceFilter stackTraceFilter;
 	private Announcer<OnWorldChangedListener> onWorldChangedListeners;
 	private Announcer<BouncerEventsListener> bouncerEventsListeners;
-	
-	public DefaultEventBus() {
+
+	public DefaultEventBus(StackTraceFilter stackTraceFilter) {
+		this.stackTraceFilter = stackTraceFilter;
 		onWorldChangedListeners = Announcer.to(OnWorldChangedListener.class);
 		bouncerEventsListeners = Announcer.to(BouncerEventsListener.class);
 	}
-	
+
 	@Override
 	public void addOnWordChangedListener(OnWorldChangedListener listener) {
 		onWorldChangedListeners.addListener(listener);
@@ -35,12 +38,15 @@ public class DefaultEventBus implements EventBus {
 	public void bouncerTurnedLeft() {
 		onWorldChangedListeners.announce().onWorldChanged();
 		bouncerEventsListeners.announce().onBouncerTurnedLeft();
+		printStudentMethodCall();
 	}
 
 	@Override
-	public void bouncerTriedToMoveInObstacle(Field fromField, Direction inDirection) {
+	public void bouncerTriedToMoveInObstacle(Field fromField,
+			Direction inDirection) {
 		onWorldChangedListeners.announce().onWorldChanged();
-		bouncerEventsListeners.announce().onBouncerTriedToMoveInObstacle(fromField, inDirection);
+		bouncerEventsListeners.announce().onBouncerTriedToMoveInObstacle(
+				fromField, inDirection);
 	}
 
 	@Override
@@ -73,7 +79,19 @@ public class DefaultEventBus implements EventBus {
 	public void bouncerMoved(Field from, Field to) {
 		onWorldChangedListeners.announce().onWorldChanged();
 		bouncerEventsListeners.announce().onBouncerMoved(from, to);
+		printStudentMethodCall();
 	}
 
-	
+	private void printStudentMethodCall() {
+		StackTraceElement[] studentStackTrace = studentMethodCall();
+		System.out.println(studentStackTrace[0]);
+		for (int i = 1; i < studentStackTrace.length; i++) {
+			System.out.println("\tat " + studentStackTrace[i]);
+		}
+	}
+
+	private StackTraceElement[] studentMethodCall() {
+		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
+		return stackTraceFilter.select(elements);
+	}
 }

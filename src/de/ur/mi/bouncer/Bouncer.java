@@ -6,6 +6,7 @@ import de.ur.mi.bouncer.error.BouncerError;
 import de.ur.mi.bouncer.events.EventBus;
 import de.ur.mi.bouncer.events.NullEventBus;
 import de.ur.mi.bouncer.world.FieldColor;
+import de.ur.mi.bouncer.stacktrace.StackTraceFilter;
 import de.ur.mi.bouncer.world.Field;
 import de.ur.mi.bouncer.world.NullField;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
@@ -15,6 +16,7 @@ public class Bouncer {
 	private final BeeperBag inventory;
 	private Field currentField;
 	private Direction currentOrientation;
+	private StackTraceFilter stackTraceFilter;
 	private boolean shouldThrowError = false;
 
 	public Bouncer() {
@@ -28,15 +30,18 @@ public class Bouncer {
 		this.eventBus.eventBusWasChanged();
 		this.eventBus = eventBus;
 	}
+	
+	public final void setStackTraceFilter(StackTraceFilter stackTraceFilter) {
+		this.stackTraceFilter = stackTraceFilter;
+	}
 
-	public void setStopsOnError(boolean throwsError) {
-		this.shouldThrowError = throwsError;
+	public void setStopsOnError(boolean stopsOnError) {
+		this.shouldThrowError = stopsOnError;
 	}
 
 	public final void fillInventory(List<Beeper> beepers) {
 		inventory.fill(beepers);
 	}
-
 
 	public void placeInWorld(TwoDimensionalWorld world) {
 		this.placeAt(world.bouncerStartField());
@@ -56,12 +61,13 @@ public class Bouncer {
 				.tryToLeaveInDirection(currentOrientation);
 		if (nextField == currentField) {
 			throwErrorIfWanted("Bouncer konnte diesen Schritt nicht gehen.");
-			eventBus.bouncerTriedToMoveInObstacle(currentField, currentOrientation);
+			eventBus.bouncerTriedToMoveInObstacle(currentField,
+					currentOrientation);
 			return;
 		}
 		move(currentField, nextField);
 	}
-	
+
 	private void move(Field from, Field to) {
 		from.leftByBouncer();
 		currentField = to;
@@ -160,7 +166,7 @@ public class Bouncer {
 
 	private void throwErrorIfWanted(String errorMessage) {
 		if (shouldThrowError) {
-			throw new BouncerError(errorMessage);
+			throw new BouncerError(errorMessage, stackTraceFilter);
 		}
 	}
 }

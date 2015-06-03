@@ -4,6 +4,7 @@ import de.ur.mi.bouncer.Bouncer;
 import de.ur.mi.bouncer.events.DefaultEventBus;
 import de.ur.mi.bouncer.events.EventBus;
 import de.ur.mi.bouncer.events.OnWorldChangedListener;
+import de.ur.mi.bouncer.stacktrace.StackTraceFilter;
 import de.ur.mi.bouncer.ui.GraphicsContext;
 import de.ur.mi.bouncer.ui.WorldScene;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
@@ -52,7 +53,11 @@ public abstract class GenericBouncerApp<T extends Bouncer> extends GraphicsApp
 	}
 
 	private EventBus newEventBus() {
-		return new DefaultEventBus();
+		return new DefaultEventBus(newStackTraceFilter());
+	}
+	
+	protected StackTraceFilter newStackTraceFilter() {
+		return StackTraceFilter.forClasses(this.getClass());
 	}
 
 	private void setupApplet() {

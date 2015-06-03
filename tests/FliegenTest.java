@@ -8,6 +8,7 @@ import de.ur.mi.bouncer.apps.tasks.Fliegen;
 import de.ur.mi.bouncer.events.BouncerEventsListener;
 import de.ur.mi.bouncer.events.DefaultEventBus;
 import de.ur.mi.bouncer.world.FieldColor;
+import de.ur.mi.bouncer.stacktrace.StackTraceFilter;
 import de.ur.mi.bouncer.world.Field;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 import de.ur.mi.bouncer.world.loader.WorldLoader;
@@ -30,7 +31,8 @@ public class FliegenTest implements BouncerEventsListener {
 
 	@Test
 	public void test() {
-		DefaultEventBus eventBus = new DefaultEventBus();
+		DefaultEventBus eventBus = new DefaultEventBus(
+				StackTraceFilter.forClasses(Fliegen.class));
 		eventBus.addBouncerEventsListener(this);
 		app.setupBouncer(eventBus);
 		app.bounce();

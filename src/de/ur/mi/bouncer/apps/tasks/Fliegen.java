@@ -19,10 +19,7 @@ public class Fliegen extends WorldBouncerApp {
 		bouncer.turnLeft();
 		bouncer.turnLeft();
 		bouncer.move();
-		bouncer.move();
-		bouncer.move();
-		bouncer.move();
-		bouncer.move();
+		bouncer.setStopsOnError(true);
 		for (int rowIdx = 0; rowIdx < bouncer.sizeOfWorld(); rowIdx++) {
 			for (int colIdx = 0; colIdx < bouncer.sizeOfWorld(); colIdx++) {
 				bouncer.jumpToRowAndColumn(rowIdx, colIdx);
