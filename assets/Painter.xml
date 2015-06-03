@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map version="1.0">
+	<bouncer x="3" y="14" />
+	<obstacle x="6" y="13" />
+	<obstacle x="6" y="12" />
+	<obstacle x="6" y="11" />
+	<obstacle x="7" y="11" />
+	<obstacle x="8" y="11" />
+	<obstacle x="9" y="11" />
+	<obstacle x="10" y="11" />
+	<obstacle x="11" y="11" />
+	<obstacle x="12" y="11" />
+	<obstacle x="13" y="11" />
+	<obstacle x="14" y="11" />
+</map>
