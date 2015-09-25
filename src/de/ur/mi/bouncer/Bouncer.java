@@ -112,30 +112,30 @@ public class Bouncer {
 		eventBus.fieldColorWasClearedByBouncer(currentField);
 	}
 
-	public final boolean isFrontClear() {
+	public final boolean canMoveForward() {
 		return currentField.isNeighbourInDirectionClear(currentOrientation);
 	}
 
-	public final boolean isLeftClear() {
+	public final boolean canMoveLeft() {
 		return currentField.isNeighbourInDirectionClear(currentOrientation
 				.afterLeftTurn());
 	}
 
-	public final boolean isRightClear() {
+	public final boolean canMoveRight() {
 		return currentField.isNeighbourInDirectionClear(currentOrientation
 				.afterRightTurn());
 	}
 
-	public final boolean isFrontBlocked() {
-		return !isFrontClear();
+	public final boolean canNotMoveForward() {
+		return !canMoveForward();
 	}
 
-	public final boolean isLeftBlocked() {
-		return !isLeftClear();
+	public final boolean canNotMoveLeft() {
+		return !canMoveLeft();
 	}
 
-	public final boolean isRightBlocked() {
-		return !isRightClear();
+	public final boolean canNotMoveRight() {
+		return !canMoveRight();
 	}
 
 	public final boolean isFacingWest() {
