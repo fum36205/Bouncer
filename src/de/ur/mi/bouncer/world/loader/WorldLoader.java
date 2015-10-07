@@ -1,5 +1,6 @@
 package de.ur.mi.bouncer.world.loader;
 import java.io.File;
+import java.net.URL;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,7 +14,8 @@ public class WorldLoader {
 	
 	public TwoDimensionalWorld loadLocalMap(String mapName) {
 		try {
-			File mapFile = new File(ASSET_FOLDER + mapName + ".xml");
+			URL base = WorldLoader.class.getResource("/data/assets/" + mapName + ".xml");
+			File mapFile = new File(base.getFile());
 			Document doc = Jsoup.parse(mapFile, "UTF-8");
 			return XmlWorldBuilder.fromXmlDocument(doc);
 		} catch (Exception e) {

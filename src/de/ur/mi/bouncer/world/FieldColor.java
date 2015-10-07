@@ -1,5 +1,5 @@
 package de.ur.mi.bouncer.world;
 
-public enum Color {
+public enum FieldColor {
 	RED, GREEN, WHITE, BLUE;
 }
