@@ -7,7 +7,7 @@ import de.ur.mi.bouncer.Direction;
 import de.ur.mi.bouncer.apps.tasks.Fliegen;
 import de.ur.mi.bouncer.events.BouncerEventsListener;
 import de.ur.mi.bouncer.events.DefaultEventBus;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 import de.ur.mi.bouncer.world.loader.WorldLoader;
@@ -49,7 +49,7 @@ public class FliegenTest implements BouncerEventsListener {
 	}
 
 	@Override
-	public void onBouncerPaintedField(Field field, Color color) {
+	public void onBouncerPaintedField(Field field, FieldColor fieldColor) {
 	}
 
 	@Override

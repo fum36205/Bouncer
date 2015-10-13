@@ -1,10 +1,10 @@
 package de.ur.mi.bouncer.world.builders.xml;
 
+import de.ur.mi.bouncer.world.FieldColor;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import de.ur.mi.bouncer.world.Color;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 
 public class XmlWorldBuilder {
@@ -40,11 +40,11 @@ public class XmlWorldBuilder {
 			String value = color.attr("value");
 
 			if ("RED".equals(value)) {
-				world.paintFieldAt(x, y, Color.RED);
+				world.paintFieldAt(x, y, FieldColor.RED);
 			} else if ("GREEN".equals(value)) {
-				world.paintFieldAt(x, y, Color.GREEN);
+				world.paintFieldAt(x, y, FieldColor.GREEN);
 			} else if ("BLUE".equals(value)) {
-				world.paintFieldAt(x, y, Color.BLUE);
+				world.paintFieldAt(x, y, FieldColor.BLUE);
 			}
 		}
 	}

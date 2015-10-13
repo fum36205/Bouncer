@@ -5,7 +5,7 @@ import java.util.List;
 import de.ur.mi.bouncer.error.BouncerError;
 import de.ur.mi.bouncer.events.EventBus;
 import de.ur.mi.bouncer.events.NullEventBus;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 import de.ur.mi.bouncer.world.NullField;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
@@ -98,13 +98,13 @@ public class Bouncer {
 		eventBus.bouncerTurnedLeft();
 	}
 
-	public final void paintField(Color color) {
-		currentField.paintWith(color);
-		eventBus.fieldWasPaintedWithColorByBouncer(currentField, color);
+	public final void paintField(FieldColor fieldColor) {
+		currentField.paintWith(fieldColor);
+		eventBus.fieldWasPaintedWithColorByBouncer(currentField, fieldColor);
 	}
 
-	public final boolean isOnFieldWithColor(Color color) {
-		return currentField.isPaintedWith(color);
+	public final boolean isOnFieldWithColor(FieldColor fieldColor) {
+		return currentField.isPaintedWith(fieldColor);
 	}
 
 	public final void clearFieldColor() {

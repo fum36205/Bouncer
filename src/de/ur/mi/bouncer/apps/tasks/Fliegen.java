@@ -2,7 +2,7 @@ package de.ur.mi.bouncer.apps.tasks;
 
 import de.ur.mi.bouncer.apps.WorldBouncerApp;
 import de.ur.mi.bouncer.subtypes.WorldBouncer;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 
 @SuppressWarnings("serial")
 public class Fliegen extends WorldBouncerApp {
@@ -28,15 +28,15 @@ public class Fliegen extends WorldBouncerApp {
 				bouncer.jumpToRowAndColumn(rowIdx, colIdx);
 				if (colIdx % 2 == 0) {
 					if (rowIdx % 2 == 0) {
-						bouncer.paintField(Color.RED);
+						bouncer.paintField(FieldColor.RED);
 					} else {
-						bouncer.paintField(Color.BLUE);
+						bouncer.paintField(FieldColor.BLUE);
 					}
 				} else {
 					if (rowIdx % 2 == 0) {
-						bouncer.paintField(Color.GREEN);
+						bouncer.paintField(FieldColor.GREEN);
 					} else {
-						bouncer.paintField(Color.RED);
+						bouncer.paintField(FieldColor.RED);
 					}
 				}
 			}

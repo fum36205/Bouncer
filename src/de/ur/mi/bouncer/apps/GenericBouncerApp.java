@@ -75,6 +75,10 @@ public abstract class GenericBouncerApp<T extends Bouncer> extends GraphicsApp
 
 	public abstract void bounce();
 
+	public final void loadMap(String mapName) {
+		loadLocalMap(mapName);
+	}
+
 	public final void loadLocalMap(String mapName) {
 		world = worldLoader.loadLocalMap(mapName);
 		if (worldScene != null) {

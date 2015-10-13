@@ -2,12 +2,12 @@ package de.ur.mi.bouncer.events;
 
 import de.ur.mi.bouncer.Beeper;
 import de.ur.mi.bouncer.Direction;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 
 public interface EventBus {
 
-	void fieldWasPaintedWithColorByBouncer(Field field, Color color);
+	void fieldWasPaintedWithColorByBouncer(Field field, FieldColor fieldColor);
 
 	void fieldColorWasClearedByBouncer(Field field);
 
