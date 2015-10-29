@@ -4,21 +4,52 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 
 public class XmlWorldBuilder {
 
 	public static TwoDimensionalWorld fromXmlDocument(Document doc) {
-		TwoDimensionalWorld world = TwoDimensionalWorld.emptyWorld();
+		TwoDimensionalWorld world;
+		world = TwoDimensionalWorld.emptyWorld();
+		Element map = doc.select("map").first();
+		if (map.hasAttr("size")) {
+			world = TwoDimensionalWorld.emptyWorldWithSize(Integer.valueOf(map.attr("size")));
+		}
 		setupWorld(world, doc);
 		return world;
 	}
 
 	private static void setupWorld(TwoDimensionalWorld world, Document doc) {
-		setupObstacles(world, doc);
-		setupColors(world, doc);
-		setupBouncer(world, doc);
+		Elements obstacles = doc.select("obstacle");
+		for (int i = 0; i < obstacles.size(); i++) {
+			Element obstacle = obstacles.get(i);
+			int x = Integer.valueOf(obstacle.attr("x"));
+			int y = Integer.valueOf(obstacle.attr("y"));
+			world.placeObstacleAt(x, y);
+		}
+		Elements colors = doc.select("color");
+		for (int i = 0; i < colors.size(); i++) {
+			Element color = colors.get(i);
+			int x = Integer.valueOf(color.attr("x"));
+			int y = Integer.valueOf(color.attr("y"));
+			String value = color.attr("value");
+		
+			if ("RED".equals(value)) {
+				world.paintFieldAt(x, y, FieldColor.RED);
+			} else if ("GREEN".equals(value)) {
+				world.paintFieldAt(x, y, FieldColor.GREEN);
+			} else if ("BLUE".equals(value)) {
+				world.paintFieldAt(x, y, FieldColor.BLUE);
+			}
+		}
+		Element bouncer = doc.select("bouncer").first();
+		if (bouncer == null) {
+			return;
+		}
+		int x = Integer.valueOf(bouncer.attr("x"));
+		int y = Integer.valueOf(bouncer.attr("y"));
+		world.setBouncerStartPosition(x, y);
 	}
 
 	private static void setupBouncer(TwoDimensionalWorld world, Document doc) {
@@ -28,7 +59,7 @@ public class XmlWorldBuilder {
 		}
 		int x = Integer.valueOf(bouncer.attr("x"));
 		int y = Integer.valueOf(bouncer.attr("y"));
-		world.placeBouncerAt(x, y);
+		world.setBouncerStartPosition(x, y);
 	}
 
 	private static void setupColors(TwoDimensionalWorld world, Document doc) {
@@ -40,11 +71,11 @@ public class XmlWorldBuilder {
 			String value = color.attr("value");
 
 			if ("RED".equals(value)) {
-				world.paintFieldAt(x, y, Color.RED);
+				world.paintFieldAt(x, y, FieldColor.RED);
 			} else if ("GREEN".equals(value)) {
-				world.paintFieldAt(x, y, Color.GREEN);
+				world.paintFieldAt(x, y, FieldColor.GREEN);
 			} else if ("BLUE".equals(value)) {
-				world.paintFieldAt(x, y, Color.BLUE);
+				world.paintFieldAt(x, y, FieldColor.BLUE);
 			}
 		}
 	}

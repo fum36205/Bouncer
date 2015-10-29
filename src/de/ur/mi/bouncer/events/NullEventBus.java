@@ -1,7 +1,7 @@
 package de.ur.mi.bouncer.events;
 import de.ur.mi.bouncer.Beeper;
 import de.ur.mi.bouncer.Direction;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 
 public class NullEventBus implements EventBus {
@@ -18,7 +18,7 @@ public class NullEventBus implements EventBus {
 	public void fieldWasLeftByBouncer(Field field) {
 	}
 
-	public void fieldWasPaintedWithColorByBouncer(Field field, Color color) {
+	public void fieldWasPaintedWithColorByBouncer(Field field, FieldColor color) {
 	}
 
 	public void bouncerTriedToMoveInObstacle(Field field, Direction direction) {

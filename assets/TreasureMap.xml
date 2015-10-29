@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+	<obstacle x="4" y="1" value="undefined " />
+	<obstacle x="5" y="1" value="undefined " />
+	<obstacle x="6" y="1" value="undefined " />
+	<obstacle x="7" y="1" value="undefined " />
+	<obstacle x="8" y="1" value="undefined " />
+	<obstacle x="9" y="1" value="undefined " />
+	<obstacle x="10" y="1" value="undefined " />
+	<obstacle x="11" y="1" value="undefined " />
+	<obstacle x="12" y="1" value="undefined " />
+	<color x="5" y="2" value="RED" />
+	<color x="6" y="2" value="GREEN" />
+	<color x="7" y="2" value="BLUE" />
+	<color x="8" y="2" value="RED" />
+	<color x="9" y="2" value="GREEN" />
+	<color x="10" y="2" value="BLUE" />
+	<color x="11" y="2" value="RED" />
+	<obstacle x="12" y="2" value="undefined " />
+	<obstacle x="4" y="3" value="undefined " />
+	<obstacle x="5" y="3" value="undefined " />
+	<obstacle x="6" y="3" value="undefined " />
+	<obstacle x="7" y="3" value="undefined " />
+	<obstacle x="8" y="3" value="undefined " />
+	<color x="9" y="3" value="RED" />
+	<color x="10" y="3" value="GREEN" />
+	<color x="11" y="3" value="BLUE" />
+	<obstacle x="12" y="3" value="undefined " />
+	<obstacle x="8" y="4" value="undefined " />
+	<color x="9" y="4" value="GREEN" />
+	<color x="10" y="4" value="BLUE" />
+	<color x="11" y="4" value="RED" />
+	<obstacle x="12" y="4" value="undefined " />
+	<obstacle x="8" y="5" value="undefined " />
+	<obstacle x="9" y="5" value="undefined " />
+	<obstacle x="10" y="5" value="undefined " />
+	<obstacle x="11" y="5" value="undefined " />
+	<obstacle x="12" y="5" value="undefined " />
+	<bouncer x="3" y="8" value="undefined " />
+</map>

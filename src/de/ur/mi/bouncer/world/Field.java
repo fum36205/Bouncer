@@ -7,10 +7,10 @@ public class Field {
 	private final Surroundings surroundings;
 	private FieldContent content;
 	private BeeperBag beeperBag;
-	private Color color;
+	private FieldColor color;
 	private Collision collision;
 	
-	public Field(FieldContent content, Color color, BeeperBag beeperBag,
+	public Field(FieldContent content, FieldColor color, BeeperBag beeperBag,
 			Surroundings surroundings) {
 		this.content = content;
 		this.color = color;
@@ -31,7 +31,8 @@ public class Field {
 	}
 
 	public Field tryToLeaveInDirection(Direction direction) {
-		if (!canBeLeftInDirection(direction)) {
+		Field neighbour = surroundings.neighbourInDirection(direction);
+		if (!(neighbour != null && neighbour.isClear())) {
 			this.collision = new Collision(direction);
 			return this;
 		}
@@ -67,11 +68,11 @@ public class Field {
 		return beeperBag.retrieveBeeper();
 	}
 
-	public void paintWith(Color color) {
+	public void paintWith(FieldColor color) {
 		this.color = color;
 	}
 
-	public boolean isPaintedWith(Color color) {
+	public boolean isPaintedWith(FieldColor color) {
 		return this.color.equals(color);
 	}
 
@@ -84,7 +85,7 @@ public class Field {
 	}
 
 	public void clearColor() {
-		this.color = Color.WHITE;
+		this.color = FieldColor.WHITE;
 	}
 	
 	public boolean hasCollision() {
@@ -103,7 +104,7 @@ public class Field {
 		this.content = content;
 	}
 
-	public Color color() {
+	public FieldColor color() {
 		return this.color;
 	}
 

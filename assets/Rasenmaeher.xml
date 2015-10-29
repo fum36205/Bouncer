@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<map>
+<color x="9" y="1"  value="GREEN" />
+<color x="12" y="1"  value="GREEN" />
+<color x="2" y="2"  value="GREEN" />
+<color x="3" y="3"  value="GREEN" />
+<color x="9" y="3"  value="GREEN" />
+<color x="10" y="4"  value="GREEN" />
+<color x="11" y="4"  value="GREEN" />
+<color x="10" y="5"  value="GREEN" />
+<color x="11" y="5"  value="GREEN" />
+<color x="11" y="6"  value="GREEN" />
+<color x="5" y="7"  value="GREEN" />
+<color x="6" y="7"  value="GREEN" />
+<color x="7" y="7"  value="GREEN" />
+<color x="8" y="7"  value="GREEN" />
+<color x="9" y="7"  value="GREEN" />
+<color x="1" y="9"  value="GREEN" />
+<color x="2" y="9"  value="GREEN" />
+<color x="3" y="9"  value="GREEN" />
+<color x="8" y="11"  value="GREEN" />
+<color x="9" y="11"  value="GREEN" />
+<color x="10" y="11"  value="GREEN" />
+<color x="8" y="13"  value="GREEN" />
+<color x="9" y="13"  value="GREEN" />
+<color x="10" y="13"  value="GREEN" />
+<bouncer x="0" y="14"  value="undefined" />
+<color x="2" y="14"  value="GREEN" />
+<color x="6" y="14"  value="GREEN" />
+</map>

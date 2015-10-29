@@ -4,7 +4,7 @@ import auctionsniper.util.Announcer;
 import de.ur.mi.bouncer.Beeper;
 import de.ur.mi.bouncer.Direction;
 import de.ur.mi.bouncer.stacktrace.StackTraceFilter;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 
 public class DefaultEventBus implements EventBus {
@@ -24,45 +24,44 @@ public class DefaultEventBus implements EventBus {
 	}
 
 	@Override
-	public void fieldWasPaintedWithColorByBouncer(Field field, Color color) {
-		onWorldChangedListeners.announce().onWorldChanged();
+	public void fieldWasPaintedWithColorByBouncer(Field field, FieldColor color) {
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerPaintedField(field, color);
 	}
 
 	@Override
 	public void fieldColorWasClearedByBouncer(Field field) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 	}
 
 	@Override
 	public void bouncerTurnedLeft() {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerTurnedLeft();
-		printStudentMethodCall();
 	}
 
 	@Override
 	public void bouncerTriedToMoveInObstacle(Field fromField,
 			Direction inDirection) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerTriedToMoveInObstacle(
 				fromField, inDirection);
 	}
 
 	@Override
 	public void bouncerWasPlacedAtField(Field field) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerWasPlacedAtField(field);
 	}
 
 	@Override
 	public void bouncerPickedUpBeeper(Beeper beeper) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 	}
 
 	@Override
 	public void bouncerPutBeeperAtField(Beeper beeper, Field field) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 	}
 
 	@Override
@@ -77,9 +76,8 @@ public class DefaultEventBus implements EventBus {
 
 	@Override
 	public void bouncerMoved(Field from, Field to) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerMoved(from, to);
-		printStudentMethodCall();
 	}
 
 	private void printStudentMethodCall() {

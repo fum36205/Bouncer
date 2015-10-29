@@ -12,7 +12,7 @@ public class WorldTests {
 	public void placesBouncerAtField() throws Exception {
 		Bouncer b = new Bouncer();
 		TwoDimensionalWorld world = TwoDimensionalWorld.emptyWorld();
-		world.placeBouncerAt(0, 0);
+		world.setBouncerStartPosition(0, 0);
 		b.placeAt(world.bouncerStartField());
 		assertTrue(world.hasBouncerAt(0, 0));
 	}

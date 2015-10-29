@@ -1,6 +1,9 @@
 package de.ur.mi.bouncer.apps;
 
+import java.io.FileNotFoundException;
+
 import de.ur.mi.bouncer.Bouncer;
+import de.ur.mi.bouncer.error.BouncerError;
 import de.ur.mi.bouncer.events.DefaultEventBus;
 import de.ur.mi.bouncer.events.EventBus;
 import de.ur.mi.bouncer.events.OnWorldChangedListener;
@@ -50,12 +53,13 @@ public abstract class GenericBouncerApp<T extends Bouncer> extends GraphicsApp
 	public void setupBouncer(EventBus eventBus) {
 		bouncer = createBouncer();
 		bouncer.setEventBus(eventBus);
+		bouncer.setStackTraceFilter(newStackTraceFilter());
 	}
 
 	private EventBus newEventBus() {
 		return new DefaultEventBus(newStackTraceFilter());
 	}
-	
+
 	protected StackTraceFilter newStackTraceFilter() {
 		return StackTraceFilter.forClasses(this.getClass());
 	}
@@ -80,24 +84,43 @@ public abstract class GenericBouncerApp<T extends Bouncer> extends GraphicsApp
 
 	public abstract void bounce();
 
+	public final void loadMap(String mapName) {
+		this.loadLocalMap(mapName);
+	}
+
 	public final void loadLocalMap(String mapName) {
-		world = worldLoader.loadLocalMap(mapName);
-		if (worldScene != null) {
-			worldScene.setWorld(world);
+		try {
+			world = worldLoader.loadLocalMap(mapName);
+		} catch (FileNotFoundException e) {
+			throw new BouncerError("Konnte die Karte mit Namen \"" + mapName
+					+ "\" nicht finden.", newStackTraceFilter());
 		}
-		bouncer.placeInWorld(world);
+		loadWorld(world);
 	}
 
 	public final void loadOnlineMap(String mapName) {
-		world = worldLoader.loadOnlineMap(mapName);
+		try {
+			world = worldLoader.loadOnlineMap(mapName);
+		} catch (FileNotFoundException e) {
+			throw new BouncerError("Konnte die Karte mit Namen \"" + mapName
+					+ "\" nicht finden.", newStackTraceFilter());
+		}
+		loadWorld(world);
+	}
+
+	private void loadWorld(TwoDimensionalWorld world) {
 		if (worldScene != null) {
 			worldScene.setWorld(world);
 		}
-		worldScene.setWorld(world);
 		bouncer.placeInWorld(world);
+		updateWindowSize();
 	}
 
-	public void onWorldChanged() {
+	private void updateWindowSize() {
+		size(worldScene.size(), worldScene.size());
+	}
+
+	public void onWorldStateChanged() {
 		try {
 			Thread.sleep(1000 / appConfig.frameRate());
 		} catch (InterruptedException e) {

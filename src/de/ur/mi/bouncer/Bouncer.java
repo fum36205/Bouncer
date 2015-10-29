@@ -6,12 +6,12 @@ import de.ur.mi.bouncer.error.BouncerError;
 import de.ur.mi.bouncer.events.EventBus;
 import de.ur.mi.bouncer.events.NullEventBus;
 import de.ur.mi.bouncer.stacktrace.StackTraceFilter;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 import de.ur.mi.bouncer.world.NullField;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 
-public class Bouncer {
+public class Bouncer implements BasicBouncerCommands {
 	private EventBus eventBus;
 	private final BeeperBag inventory;
 	private Field currentField;
@@ -30,7 +30,7 @@ public class Bouncer {
 		this.eventBus.eventBusWasChanged();
 		this.eventBus = eventBus;
 	}
-	
+
 	public final void setStackTraceFilter(StackTraceFilter stackTraceFilter) {
 		this.stackTraceFilter = stackTraceFilter;
 	}
@@ -48,14 +48,14 @@ public class Bouncer {
 	}
 
 	public final void placeAt(Field field) {
-		if (currentField == field) {
-			throwErrorIfWanted("Bouncer steht schon auf diesem Feld");
-			return;
-		}
 		move(currentField, field);
 		eventBus.bouncerWasPlacedAtField(currentField);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#move()
+	 */
+	@Override
 	public final void move() {
 		Field nextField = currentField
 				.tryToLeaveInDirection(currentOrientation);
@@ -99,63 +99,111 @@ public class Bouncer {
 		inventory.addBeeper(beeper);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#turnLeft()
+	 */
+	@Override
 	public final void turnLeft() {
 		currentOrientation = currentOrientation.afterLeftTurn();
 		eventBus.bouncerTurnedLeft();
 	}
 
-	public final void paintField(Color color) {
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#paintField(de.ur.mi.bouncer.world.FieldColor)
+	 */
+	@Override
+	public final void paintField(FieldColor color) {
 		currentField.paintWith(color);
 		eventBus.fieldWasPaintedWithColorByBouncer(currentField, color);
 	}
 
-	public final boolean isOnFieldWithColor(Color color) {
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#isOnFieldWithColor(de.ur.mi.bouncer.world.FieldColor)
+	 */
+	@Override
+	public final boolean isOnFieldWithColor(FieldColor color) {
 		return currentField.isPaintedWith(color);
 	}
+	
+	public final FieldColor fieldColor() {
+		return currentField.color();
+	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#clearFieldColor()
+	 */
+	@Override
 	public final void clearFieldColor() {
 		currentField.clearColor();
 		eventBus.fieldColorWasClearedByBouncer(currentField);
 	}
 
-	public final boolean isFrontClear() {
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#canMoveForward()
+	 */
+	@Override
+	public final boolean canMoveForward() {
 		return currentField.isNeighbourInDirectionClear(currentOrientation);
 	}
 
-	public final boolean isLeftClear() {
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#canMoveLeft()
+	 */
+	@Override
+	public final boolean canMoveLeft() {
 		return currentField.isNeighbourInDirectionClear(currentOrientation
 				.afterLeftTurn());
 	}
 
-	public final boolean isRightClear() {
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#canMoveRight()
+	 */
+	@Override
+	public final boolean canMoveRight() {
 		return currentField.isNeighbourInDirectionClear(currentOrientation
 				.afterRightTurn());
 	}
 
 	public final boolean isFrontBlocked() {
-		return !isFrontClear();
+		return !canMoveForward();
 	}
 
 	public final boolean isLeftBlocked() {
-		return !isLeftClear();
+		return !canMoveLeft();
 	}
 
 	public final boolean isRightBlocked() {
-		return !isRightClear();
+		return !canMoveRight();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#isFacingWest()
+	 */
+	@Override
 	public final boolean isFacingWest() {
 		return currentOrientation == Direction.WEST;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#isFacingEast()
+	 */
+	@Override
 	public final boolean isFacingEast() {
 		return currentOrientation == Direction.EAST;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#isFacingNorth()
+	 */
+	@Override
 	public final boolean isFacingNorth() {
 		return currentOrientation == Direction.NORTH;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.ur.mi.bouncer.BasicBouncerCommands#isFacingSouth()
+	 */
+	@Override
 	public final boolean isFacingSouth() {
 		return currentOrientation == Direction.SOUTH;
 	}
@@ -164,9 +212,25 @@ public class Bouncer {
 		return this.currentOrientation;
 	}
 
-	private void throwErrorIfWanted(String errorMessage) {
+	protected void throwErrorIfWanted(String errorMessage) {
 		if (shouldThrowError) {
 			throw new BouncerError(errorMessage, stackTraceFilter);
 		}
 	}
+
+	@Override
+	public boolean canNotMoveForward() {
+		return !this.canMoveForward();
+	}
+
+	@Override
+	public boolean canNotMoveLeft() {
+		return !this.canMoveLeft();
+	}
+
+	@Override
+	public boolean canNotMoveRight() {
+		return !this.canMoveRight();
+	}
+
 }

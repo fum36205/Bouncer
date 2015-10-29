@@ -42,11 +42,11 @@ public class NullField extends Field {
 	}
 	
 	@Override
-	public void paintWith(Color color) {
+	public void paintWith(FieldColor color) {
 	}
 	
 	@Override
-	public boolean isPaintedWith(Color color) {
+	public boolean isPaintedWith(FieldColor color) {
 		return false;
 	}
 	
