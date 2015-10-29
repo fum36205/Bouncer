@@ -20,9 +20,9 @@ public class TwoDimensionalWorld {
 		field.setContent(FieldContent.OBSTACLE);
 	}
 
-	public void paintFieldAt(int x, int y, Color color) {
+	public void paintFieldAt(int x, int y, FieldColor fieldColor) {
 		Field field = fieldAt(x, y);
-		field.paintWith(color);
+		field.paintWith(fieldColor);
 	}
 
 	public void placeBouncerAt(int x, int y) {
@@ -50,7 +50,7 @@ public class TwoDimensionalWorld {
 		return fieldAt(x, y).hasBouncer();
 	}
 
-	public Color colorAt(int x, int y) {
+	public FieldColor colorAt(int x, int y) {
 		return fieldAt(x, y).color();
 	}
 	
@@ -81,7 +81,7 @@ public class TwoDimensionalWorld {
 	private void createFields() {
 		for (int x = 0; x < fields.length; x++) {
 			for (int y = 0; y < fields[x].length; y++) {
-				fields[x][y] = new Field(FieldContent.FREE, Color.WHITE,
+				fields[x][y] = new Field(FieldContent.FREE, FieldColor.WHITE,
 						new BeeperBag(), new Surroundings());
 			}
 		}

@@ -3,7 +3,7 @@ package de.ur.mi.bouncer.events;
 import auctionsniper.util.Announcer;
 import de.ur.mi.bouncer.Beeper;
 import de.ur.mi.bouncer.Direction;
-import de.ur.mi.bouncer.world.Color;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.Field;
 
 public class DefaultEventBus implements EventBus {
@@ -21,9 +21,9 @@ public class DefaultEventBus implements EventBus {
 	}
 
 	@Override
-	public void fieldWasPaintedWithColorByBouncer(Field field, Color color) {
+	public void fieldWasPaintedWithColorByBouncer(Field field, FieldColor fieldColor) {
 		onWorldChangedListeners.announce().onWorldChanged();
-		bouncerEventsListeners.announce().onBouncerPaintedField(field, color);
+		bouncerEventsListeners.announce().onBouncerPaintedField(field, fieldColor);
 	}
 
 	@Override

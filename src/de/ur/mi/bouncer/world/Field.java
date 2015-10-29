@@ -7,13 +7,13 @@ public class Field {
 	private final Surroundings surroundings;
 	private FieldContent content;
 	private BeeperBag beeperBag;
-	private Color color;
+	private FieldColor fieldColor;
 	private Collision collision;
 	
-	public Field(FieldContent content, Color color, BeeperBag beeperBag,
+	public Field(FieldContent content, FieldColor fieldColor, BeeperBag beeperBag,
 			Surroundings surroundings) {
 		this.content = content;
-		this.color = color;
+		this.fieldColor = fieldColor;
 		this.beeperBag = beeperBag;
 		this.surroundings = surroundings;
 	}
@@ -67,12 +67,12 @@ public class Field {
 		return beeperBag.retrieveBeeper();
 	}
 
-	public void paintWith(Color color) {
-		this.color = color;
+	public void paintWith(FieldColor fieldColor) {
+		this.fieldColor = fieldColor;
 	}
 
-	public boolean isPaintedWith(Color color) {
-		return this.color.equals(color);
+	public boolean isPaintedWith(FieldColor fieldColor) {
+		return this.fieldColor.equals(fieldColor);
 	}
 
 	public boolean isClear() {
@@ -84,7 +84,7 @@ public class Field {
 	}
 
 	public void clearColor() {
-		this.color = Color.WHITE;
+		this.fieldColor = FieldColor.WHITE;
 	}
 	
 	public boolean hasCollision() {
@@ -103,8 +103,8 @@ public class Field {
 		this.content = content;
 	}
 
-	public Color color() {
-		return this.color;
+	public FieldColor color() {
+		return this.fieldColor;
 	}
 
 	public boolean hasBouncer() {
