@@ -1,28 +1,35 @@
 package de.ur.mi.bouncer.ui;
+
 import de.ur.mi.bouncer.Bouncer;
 import de.ur.mi.bouncer.Direction;
 import de.ur.mi.bouncer.apps.AppConfiguration;
 import de.ur.mi.bouncer.world.Collision;
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 
 public class WorldScene {
 	private TwoDimensionalWorld world;
 	private final Bouncer bouncer;
 	private final AppConfiguration appConfig;
+	private int size;
 	private final int squareSize;
-	private final int windowSize;
 
 	public WorldScene(TwoDimensionalWorld world, Bouncer bouncer,
 			int windowSize, AppConfiguration appConfig) {
 		this.world = world;
 		this.bouncer = bouncer;
-		this.windowSize = windowSize;
+		this.size = windowSize;
 		this.squareSize = windowSize / world.size();
 		this.appConfig = appConfig;
 	}
 
 	public void setWorld(TwoDimensionalWorld world) {
 		this.world = world;
+		size = squareSize * world.size();
+	}
+
+	public int size() {
+		return size;
 	}
 
 	public void draw(GraphicsContext graphics) {
@@ -37,11 +44,11 @@ public class WorldScene {
 
 	private void drawGrid(GraphicsContext graphics) {
 		graphics.noFill();
-		for (int i = 1; i < world.size(); i++) {
+		for (int i = 0; i < world.size(); i++) {
 			graphics.stroke(appConfig.gridColorFront());
 			graphics.strokeWeight(appConfig.borderWeight());
-			graphics.line(i * squareSize, 0, i * squareSize, windowSize);
-			graphics.line(0, i * squareSize, windowSize, i * squareSize);
+			graphics.line(i * squareSize, 0, i * squareSize, size);
+			graphics.line(0, i * squareSize, size, i * squareSize);
 		}
 	}
 
@@ -75,22 +82,22 @@ public class WorldScene {
 		float stop = 0;
 		if (collision.direction == Direction.NORTH) {
 			xPos += squareSize / 2;
-			start = (float)0;
-			stop = (float)(Math.PI);
+			start = (float) 0;
+			stop = (float) (Math.PI);
 		} else if (collision.direction == Direction.EAST) {
 			xPos += squareSize;
 			yPos += squareSize / 2;
 			start = (float) (Math.PI / 2);
-			stop = (float) (Math.PI + Math.PI /2);
+			stop = (float) (Math.PI + Math.PI / 2);
 		} else if (collision.direction == Direction.WEST) {
 			yPos += squareSize / 2;
-			start = (float)(-1*Math.PI/2);
-			stop = (float)(Math.PI/2);
+			start = (float) (-1 * Math.PI / 2);
+			stop = (float) (Math.PI / 2);
 		} else {
 			xPos += squareSize / 2;
 			yPos += squareSize;
-			start = (float)(Math.PI);
-			stop = (float)(2*Math.PI);
+			start = (float) (Math.PI);
+			stop = (float) (2 * Math.PI);
 		}
 		graphics.arc(xPos, yPos, width, height, start, stop);
 	}
@@ -128,19 +135,10 @@ public class WorldScene {
 
 	private void drawColoredField(GraphicsContext graphics, int x, int y) {
 		graphics.noStroke();
-		switch (world.colorAt(x, y)) {
-		case RED:
-			graphics.fill(appConfig.redColor());
-			break;
-		case GREEN:
-			graphics.fill(appConfig.greenColor());
-			break;
-		case BLUE:
-			graphics.fill(appConfig.blueColor());
-			break;
-		case WHITE:
+		if (world.colorAt(x, y) == FieldColor.WHITE) {
 			return;
 		}
+		graphics.fill(appConfig.valueForColor((world.colorAt(x, y))));
 		graphics.rectModeCorner();
 		graphics.rect(x * squareSize + appConfig.borderWeight(), y * squareSize
 				+ appConfig.borderWeight(),

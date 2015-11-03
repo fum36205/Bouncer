@@ -13,10 +13,16 @@ public class BouncerError extends RuntimeException {
 		this.stackTraceFilter = stackTraceFilter;
 	}
 
+	public BouncerError(Throwable cause, StackTraceFilter stackTraceFilter) {
+		super(cause);
+		this.stackTraceFilter = stackTraceFilter;
+	}
+
 	@Override
 	public void printStackTrace(PrintStream s) {
 		synchronized (s) {
-//			s.println(this);
+			s.println();
+			s.println("Bouncer-Fehler: " + getMessage());
 			StackTraceElement[] trace = getStackTrace();
 			for (int i = 0; i < trace.length; i++) {
 				s.println("\tat " + trace[i]);

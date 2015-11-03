@@ -1,10 +1,10 @@
 package de.ur.mi.bouncer.world.builders.xml;
 
-import de.ur.mi.bouncer.world.FieldColor;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import de.ur.mi.bouncer.world.FieldColor;
 import de.ur.mi.bouncer.world.TwoDimensionalWorld;
 
 public class XmlWorldBuilder {
@@ -28,7 +28,7 @@ public class XmlWorldBuilder {
 		}
 		int x = Integer.valueOf(bouncer.attr("x"));
 		int y = Integer.valueOf(bouncer.attr("y"));
-		world.placeBouncerAt(x, y);
+		world.setBouncerStartPosition(x, y);
 	}
 
 	private static void setupColors(TwoDimensionalWorld world, Document doc) {

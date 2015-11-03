@@ -8,15 +8,11 @@ import de.ur.mi.bouncer.world.FieldColor;
 public class Fliegen extends WorldBouncerApp {
 
 	@Override
-	public WorldBouncer createBouncer() {
-		return new WorldBouncer();
-	}
-
-	@Override
 	public void bounce() {
-		loadLocalMap("Empty");
-		bouncer.setStopsOnError(true);
-		bouncer.turnLeft();
+		loadLocalMap("RedLine");
+		while (bouncer.isOnFieldWithColor(FieldColor.RED))
+			bouncer.move();
+		bouncer.paintField(FieldColor.GREEN);
 		bouncer.turnLeft();
 		bouncer.move();
 		bouncer.setStopsOnError(true);

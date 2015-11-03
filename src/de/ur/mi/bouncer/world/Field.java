@@ -31,7 +31,8 @@ public class Field {
 	}
 
 	public Field tryToLeaveInDirection(Direction direction) {
-		if (!canBeLeftInDirection(direction)) {
+		Field neighbour = surroundings.neighbourInDirection(direction);
+		if (!(neighbour != null && neighbour.isClear())) {
 			this.collision = new Collision(direction);
 			return this;
 		}

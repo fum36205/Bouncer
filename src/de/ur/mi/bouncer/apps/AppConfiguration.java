@@ -1,4 +1,7 @@
 package de.ur.mi.bouncer.apps;
+
+import de.ur.mi.bouncer.world.FieldColor;
+
 public class AppConfiguration {
 
 	public int defaultWindowSize() {
@@ -37,16 +40,13 @@ public class AppConfiguration {
 		return 0x0000001E;
 	}
 
-	public int redColor() {
-		return 0x32DC0000;
-	}
-
-	public int greenColor() {
-		return 0x3200DC00;
-	}
-
-	public int blueColor() {
-		return 0x320000DC;
+	public int valueForColor(FieldColor color) {
+		switch(color) {
+		case BLUE: return 0x320000DC;
+		case GREEN: return 0x3200DC00;
+		case RED: return 0x32DC0000;
+		default: return 0xFFFFFFFF;
+		}
 	}
 
 	public int windowSizeFor(int displayHeight) {

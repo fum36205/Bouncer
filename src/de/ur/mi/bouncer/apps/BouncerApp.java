@@ -1,4 +1,5 @@
 package de.ur.mi.bouncer.apps;
+import de.ur.mi.bouncer.BasicBouncerCommands;
 import de.ur.mi.bouncer.Bouncer;
 
 

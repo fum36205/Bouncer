@@ -13,10 +13,8 @@ public class Hindernis extends MyBouncerApp {
 	public void bounce() {
 		loadLocalMap("Obstacles");
 		bouncer.setStopsOnError(true);
-		bouncer.moveEast();
-		bouncer.moveEast();
-		bouncer.turnLeft();
-		
+
+		bouncer.move();
 	}
 
 }

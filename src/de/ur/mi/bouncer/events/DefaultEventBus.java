@@ -25,18 +25,18 @@ public class DefaultEventBus implements EventBus {
 
 	@Override
 	public void fieldWasPaintedWithColorByBouncer(Field field, FieldColor fieldColor) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerPaintedField(field, fieldColor);
 	}
 
 	@Override
 	public void fieldColorWasClearedByBouncer(Field field) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 	}
 
 	@Override
 	public void bouncerTurnedLeft() {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerTurnedLeft();
 		printStudentMethodCall();
 	}
@@ -44,25 +44,25 @@ public class DefaultEventBus implements EventBus {
 	@Override
 	public void bouncerTriedToMoveInObstacle(Field fromField,
 			Direction inDirection) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerTriedToMoveInObstacle(
 				fromField, inDirection);
 	}
 
 	@Override
 	public void bouncerWasPlacedAtField(Field field) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerWasPlacedAtField(field);
 	}
 
 	@Override
 	public void bouncerPickedUpBeeper(Beeper beeper) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 	}
 
 	@Override
 	public void bouncerPutBeeperAtField(Beeper beeper, Field field) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class DefaultEventBus implements EventBus {
 
 	@Override
 	public void bouncerMoved(Field from, Field to) {
-		onWorldChangedListeners.announce().onWorldChanged();
+		onWorldChangedListeners.announce().onWorldStateChanged();
 		bouncerEventsListeners.announce().onBouncerMoved(from, to);
 		printStudentMethodCall();
 	}
